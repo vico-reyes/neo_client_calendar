@@ -1,0 +1,31 @@
+.host {
+    width: 236px;
+    height: 302px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.30);
+    border-radius: 6px;
+}
+
+.encabezado {
+    width: 100%;
+    height: 50px;
+
+         
+
+    p {
+        width: 180px;
+        letter-spacing: 0;
+        line-height: 16px;
+        margin-left: 10px;
+        margin-top: 17px;
+        margin-bottom: 17px;
+       
+    }
+    
+    i {
+        font-size: 14.4px;
+        margin: 15.8px 15.8px 19.8px 15.8px;
+    }
+
+}

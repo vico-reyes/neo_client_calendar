@@ -1,0 +1,75 @@
+describe('CalendarComponent', () => {
+  let component: CalendarComponent;
+  let fixture: ComponentFixture<CalendarComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ CalendarComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(CalendarComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+describe('Select date', () => {
+  it ('should emit date when selected', () => {
+    let selectedDate: CalendarDate = {
+      selected: false,
+      today: false,
+      inRange: false,
+      mDate: moment()
+    };
+    component.onSelectDate.subscribe(x => selectedDate = x);
+    component.selectDate(selectedDate);
+    const isSame = moment(selectedDate.mDate).isSame(moment(selectedDate.mDate), 'day');
+    expect(isSame).toBeTruthy();
+  });
+});
+
+describe('Calendar grid generation', () => {
+  it('should generate 6 weeks', () => {
+    component.generateCalendar();
+    fixture.detectChanges();
+    expect(component.weeks.length).toEqual(6);
+  });
+
+  it('should generate Jan 2018 correctly', () => {
+    component.currentDate = moment('2018-01-15');
+    component.generateCalendar();
+    fixture.detectChanges();
+    expect(component.weeks[0][0].mDate.date()).toEqual(29);
+    expect(component.weeks[5][6].mDate.date()).toEqual(11);
+  });
+});
+
+describe('Year navigation', () =>{
+  it ('should go forward 1 year', () => {
+    component.currentDate = moment ('2018-02-15');
+    fixture.detectChanges();
+    component.nextYear();
+    fixture.detectChanges();
+    expect(component.currentDate.year()).toEqual(2017);
+  });
+});
+
+describe('Month navigation', () => {
+  it('should go forward 1', () => {
+    component.currentDate = moment('2018-02-15');
+    fixture.detectChanges();
+    component.nextMonth();
+    fixture.detectChanges();
+    expect(component.currentDate.month()).toEqual(2);
+  });
+  it('should go backward 1', () => {
+    component.currentDate = moment('2018-02-15');
+    fixture.detectChanges();
+    component.prevMonth();
+    fixture.detectChanges();
+    expect(component.currentDate.month().toEqual(7));
+  });
+  it('should go to january')
+})
